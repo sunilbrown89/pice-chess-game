@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { initialBoard } from "../../Constants";
 import { Piece, Position } from "../../models";
 import { Board } from "../../models/Board";
@@ -26,9 +26,9 @@ const moveSound = new Howl({
   src: ["/sounds/move-self.mp3"],
 });
 
-const captureSound = new Howl({
-  src: ["/sounds/capture.mp3"],
-});
+// const captureSound = new Howl({
+//   src: ["/sounds/capture.mp3"],
+// });
 
 const checkmateSound = new Howl({
   src: ["/sounds/move-check.mp3"],
@@ -232,16 +232,13 @@ export default function Referee() {
     setBoard(initialBoard.clone());
   }
 
+  //Steps Counting
   function stepsCounting(num: number) {
-    if (num >= 1 && num <= 9) {
-      return "0" + num;
-    } else {
-      return num.toString();
-    }
+    return num >= 1 && num <= 9 ? "0" + num : num.toString();
   }
   const turnText = board.totalTurns === 1 ? "Total turn" : "Total turns";
   return (
-    <div>
+    <>
       <p
         style={{
           color: "white",
@@ -288,6 +285,6 @@ export default function Referee() {
         </div>
       </div>
       <Chessboard playMove={playMove} pieces={board.pieces} />
-    </div>
+    </>
   );
 }
